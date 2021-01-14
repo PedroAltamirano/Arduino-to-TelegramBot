@@ -57,15 +57,19 @@ void setup() {
 }
  
 void loop() {
-  delay(2000);
-  
-  humi  = dht.readHumidity();
-  tempC = dht.readTemperature();
-  tempF = dht.readTemperature(true);
-  Serial.println("temp ");
-  Serial.println(humi);
-  Serial.println("\n");
-  
+  delay(5000);
+  // Leemos la humedad relativa
+  float h = dht.readHumidity();
+  // Leemos la temperatura en grados centígrados (por defecto)
+  float t = dht.readTemperature();
+  // Leemos la temperatura en grados Fahrenheit
+  float f = dht.readTemperature(true);
+
+  Serial.println(h);
+  Serial.println(t);
+  Serial.println(f);
+
+  // Mesages from telegram
   if (millis() > lastTimeBotRan + botRequestDelay)  {
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
  
