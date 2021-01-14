@@ -49,8 +49,7 @@ void handleNewMessages(int numNewMessages) {
     }
     
     if (text == "/temp") {
-      getTemp();
-      bot.sendMessage(chat_id, "Getting Temperature ...", "");
+      bot.sendMessage(chat_id, getTemp(), "");
     }
   }
 }

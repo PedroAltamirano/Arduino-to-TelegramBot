@@ -7,18 +7,14 @@
 #include "DHT.h"
 #define DHTPIN 2
 #define DHTTYPE DHT11
-DHT dht(DHTPIN, DHTTYPE);
+DHT dht(DHTPIN, DHTTYPE, 30);
 
 // Replace with your network credentials
 const char* ssid = "Oficina";
 const char* password = "2292922000";
  
 // Initialize Telegram BOT
-#define BOTtoken "1459070941:AAFd8_CO8RBrww6ioq_-yq5BEZ3zv7k9bGg"  // your Bot Token (Get from Botfather)
- 
-// Use @myidbot to find out the chat ID of an individual or a group
-// Also note that you need to click "start" on a bot before it can
-// message you
+#define BOTtoken "1459070941:AAFd8_CO8RBrww6ioq_-yq5BEZ3zv7k9bGg"  // your Bot Token (Get from Botfather) 
 #define CHAT_ID "872623800"
  
 WiFiClientSecure client;
@@ -31,9 +27,13 @@ unsigned long lastTimeBotRan;
 const int ledPin = 5;
 bool ledState = LOW;
 
+float humi;
+float tempC;
+float tempF;
+
 void setup() {
   Serial.begin(115200);
-  delay(100);
+  delay(10);
 
   pinMode(DHTPIN, INPUT);
   dht.begin(); // initialize the sensor
@@ -57,6 +57,15 @@ void setup() {
 }
  
 void loop() {
+  delay(2000);
+  
+  humi  = dht.readHumidity();
+  tempC = dht.readTemperature();
+  tempF = dht.readTemperature(true);
+  Serial.println("temp ");
+  Serial.println(humi);
+  Serial.println("\n");
+  
   if (millis() > lastTimeBotRan + botRequestDelay)  {
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
  

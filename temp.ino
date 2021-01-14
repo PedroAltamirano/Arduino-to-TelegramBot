@@ -1,14 +1,8 @@
-void getTemp(void){
-  // read humidity
-  float humi  = dht.readHumidity();
-  // read temperature as Celsius
-  float tempC = dht.readTemperature();
-  // read temperature as Fahrenheit
-  float tempF = dht.readTemperature(true);
-  
+String getTemp(void){
   // check if any reads failed
   if (isnan(humi) || isnan(tempC) || isnan(tempF)) {
     Serial.println("Failed to read from DHT sensor!");
+    return "Failed to read from DHT sensor!";
   } else {
     Serial.print("Humidity: ");
     Serial.print(humi);
@@ -18,8 +12,15 @@ void getTemp(void){
     
     Serial.print("Temperature: ");
     Serial.print(tempC);
-    Serial.print("°C ~ ");
+    Serial.print("°C");
+    Serial.print(" ~ ");
     Serial.print(tempF);
     Serial.println("°F");
+
+    String msg = "Data obtained: \n";
+    msg += "Humidity" + String(humi) + "% \n";
+    msg += "Temperature" + String(tempC) + "°C ~ " + String(tempF) + "°F \n";
+    msg += "Data obtained from Pedro.";
+    return msg;
   }
 }
