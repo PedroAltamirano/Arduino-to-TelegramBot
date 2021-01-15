@@ -57,6 +57,8 @@ void setup() {
 }
  
 void loop() {
+  float tempC = dht.readTemperature();
+  
   // Mesages from telegram
   if (millis() > lastTimeBotRan + botRequestDelay)  {
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
