@@ -23,13 +23,12 @@ UniversalTelegramBot bot(BOTtoken, client);
 // Checks for new messages every 1 second.
 int botRequestDelay = 1000;
 unsigned long lastTimeBotRan;
- 
-const int ledPin = 5;
-bool ledState = LOW;
 
 float humi;
 float tempC;
 float tempF;
+
+String ID = "Pedro";
 
 void setup() {
   Serial.begin(115200);
@@ -41,9 +40,6 @@ void setup() {
   #ifdef ESP8266
     client.setInsecure();
   #endif
- 
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, ledState);
    
   // Connect to Wi-Fi
   WiFi.mode(WIFI_STA);
@@ -57,7 +53,13 @@ void setup() {
 }
  
 void loop() {
-  float tempC = dht.readTemperature();
+  delay(1000);
+  float t = dht.readTemperature();
+  if(t > 25){
+    String msg = "IOT device " + ID;
+    msg += " reports adanger status";
+    bot.sendMessage(CHAT_ID, msg, "");
+  }
   
   // Mesages from telegram
   if (millis() > lastTimeBotRan + botRequestDelay)  {

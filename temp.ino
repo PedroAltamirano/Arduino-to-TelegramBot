@@ -23,7 +23,7 @@ String getTemp(void){
     String msg = "Data obtained: \n";
     msg += "Humidity: " + String(humi) + "% \n";
     msg += "Temperature: " + String(tempC) + "°C ~ " + String(tempF) + "°F \n";
-    msg += "Data obtained from Pedro.";
+    msg += "Data obtained from " + ID;
     return msg;
   }
 }

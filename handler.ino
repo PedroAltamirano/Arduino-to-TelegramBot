@@ -18,8 +18,8 @@ void handleNewMessages(int numNewMessages) {
     String from_name = bot.messages[i].from_name;
  
     if (text == "/start") {
-      String welcome = "Welcome, " + from_name + ".\n";
-      welcome += "Arduino Uno Pedro.\n";
+      String welcome = "Bienvenido, " + from_name + ".\n";
+      welcome += "Arduino Uno " + ID + ".\n";
       welcome += "Use the following commands to control your outputs. \n\n";
       welcome += "/state to request current IOT devices conected to bot \n";
       welcome += "/temp to request current temperature from all IOT devices \n";
@@ -33,6 +33,16 @@ void handleNewMessages(int numNewMessages) {
     
     if (text == "/temp") {
       bot.sendMessage(chat_id, getTemp(), "");
+    }
+
+    if (text.indexOf("_") > 0){
+      int from = text.indexOf("_") + 1;
+      String inc_id = text.substring(from);
+      Serial.println(from);
+      Serial.println(inc_id);
+      if (inc_id == ID){
+        bot.sendMessage(chat_id, getTemp(), "");
+      }
     }
   }
 }
