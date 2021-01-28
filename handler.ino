@@ -28,7 +28,8 @@ void handleNewMessages(int numNewMessages) {
     }
      
     if (text == "/state") {
-      bot.sendMessage(chat_id, "Pedro Connected to Pool", "");
+      String mssg = ID + " Connected to Pool";
+      bot.sendMessage(chat_id, mssg, "");
     }
     
     if (text == "/temp") {
